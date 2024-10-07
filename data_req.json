@@ -6,19 +6,6 @@
         "last_message_bot": "empty",
         "hash-code": "hfoo"
     },
-    "@GeKnock": {
-        "office": "admin",
-        "status": "actives",
-        "last_message_user": "gORCH",
-        "last_message_bot": "empty",
-        "hash-code": "jert"
-    },
-    "@GeKrock": {
-        "office": "employee",
-        "status": "actives",
-        "last_message_user": "empty",
-        "last_message_bot": "empty"
-    },
     "@tirlimonka": {
         "temp_name": "tirlimonka",
         "office": "admin",
