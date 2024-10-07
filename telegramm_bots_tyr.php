@@ -1,6 +1,5 @@
 <?php
 header('Content-Type: text/plain; charset=utf-8');
-//set webhock https://api.telegram.org/bot7509063808:AAEVWQP2XAYlSY-yQ8D6ps-Aimu-2CGjmlA/setwebhook?url=https://web-pe.ru/app-php/Telegram_Tyr_Bots/telegramm_bots_tyr.php
 
 require_once __DIR__ . '/phpqrcode/qrlib.php';
 
@@ -9,7 +8,7 @@ file_put_contents('filebots.txt', '$data: '.print_r($data, 1)."\n", FILE_APPEND)
 
 
 
-$token = '7509063808:AAEVWQP2XAYlSY-yQ8D6ps-Aimu-2CGjmlA';
+$token = 'Ваш токен';
 
 
 $message = $data['message']['text'];
