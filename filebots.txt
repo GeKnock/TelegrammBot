@@ -1,0 +1,42 @@
+$data: Array
+(
+    [update_id] => 892842015
+    [message] => Array
+        (
+            [message_id] => 2622
+            [from] => Array
+                (
+                    [id] => 460616858
+                    [is_bot] => 
+                    [first_name] => Андрей
+                    [last_name] => Часов
+                    [username] => GeKnock
+                    [language_code] => ru
+                )
+
+            [chat] => Array
+                (
+                    [id] => 460616858
+                    [first_name] => Андрей
+                    [last_name] => Часов
+                    [username] => GeKnock
+                    [type] => private
+                )
+
+            [date] => 1728282686
+            [text] => /start
+            [entities] => Array
+                (
+                    [0] => Array
+                        (
+                            [offset] => 0
+                            [length] => 6
+                            [type] => bot_command
+                        )
+
+                )
+
+        )
+
+)
+

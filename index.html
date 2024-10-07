@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Scan QR Code</title>
+     <link rel="stylesheet" href="css/styles-app.css">
+</head>
+<body>
+
+  <div id="app">
+      <div id="actors">
+        <h1 id="title-code"></h1>
+        <div id="success-qr">
+            <img width="100" height="100" src="assert/check-mark-button-svgrepo-com.svg">
+        </div>
+        <div id="error-qr">
+            <img width="100" height="100" src="assert/delete-remove-uncheck-svgrepo-com.svg">
+        </div>
+        <div id="white-code">
+            <img id="imgQRS" width="100" height="100" src="#" >
+        </div>
+        <div id="number-code"></div>
+      </div>
+  </div>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<script>
+
+  let uiApp = document.getElementById("app");
+  let uiActors = document.getElementById("actors");
+  let uiSuccess = document.getElementById("success-qr");
+  let uiErrors = document.getElementById("error-qr");
+  let uiCode = document.getElementById("title-code");
+  let uiImgQr = document.getElementById("white-code");
+  let uiImg = document.getElementById("imgQRS");
+  let uiNumCode = document.getElementById("number-code");
+
+function updateUI (data, text) {
+
+if (data === "Промокод активирован") {
+  uiActors.classList.add('act_success')
+  uiSuccess.classList.add('act')
+  uiErrors.classList.remove('act')
+  tg.MainButton.color = "#63db42";
+  uiImg.src = "qr/" + text + ".png";
+
+} else if (data === "Промокод уже активирован!") {
+uiActors.classList.add('act_error')
+uiErrors.classList.add('act')
+uiSuccess.classList.remove('act')
+tg.MainButton.color = "#78182d"; 
+uiImg.src = "qr/" + text + ".png";
+
+} else if (data === "Неверный QR-код") {
+  uiErrors.classList.remove('act')
+  uiSuccess.classList.remove('act')
+  uiActors.classList.remove('act_error', 'act_success')
+  tg.MainButton.color = "#808080";
+  uiImg.src = "phpqrcode/qr-error.svg";
+
+}
+
+uiCode.innerText = data;
+uiImgQr.classList.add("white-code-wh", "act");
+uiNumCode.innerText = text;
+
+}
+
+  let tg = window.Telegram.WebApp;
+
+
+
+function showQRpollop (scanObject) {
+tg.showScanQrPopup(scanObject, (text) => {
+  if (text) {
+    
+      fetch('checkQR.php?qr=' + text)
+  .then(response => response.text())
+  .then(data => updateUI(data, text))
+  .catch(error => alert("error"));
+
+    tg.closeScanQrPopup();
+   
+  } else {
+    alert("Сканирование отменено");
+  }
+});
+} 
+
+const scanQrPopupParams = {
+  title: "Сканировать QR-код",
+  message: "Пожалуйста, наведите камеру на QR-код",
+  button_text: "Отмена",
+  need_phone_number: false,
+  need_email: false,
+  need_shipping_address: false,
+  send_phone_number_to_provider: false,
+  send_email_to_provider: false,
+  is_flexible: false
+};
+
+    tg.expand(); 
+
+    tg.MainButton.text = "New Scan QR"; 
+    tg.MainButton.setText("New Scan QR"); 
+    tg.MainButton.textColor = "#FFFFFF"; 
+    tg.MainButton.color = "#78182d"; 
+    tg.MainButton.show();
+
+    
+
+tg.MainButton.onClick(() => {
+    
+    showQRpollop(scanQrPopupParams);
+    
+  
+  });
+
+ showQRpollop(scanQrPopupParams);
+
+</script>
+
+
+</body>
+</html>
