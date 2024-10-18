@@ -1,29 +1,29 @@
 <?php
-header('Content-Type: text/plain; charset=utf-8');
+header('Content-Type: text/plain; charset=utf-8'); //Добавление базовых заголовков для корректной передачи данных
 
-require_once __DIR__ . '/phpqrcode/qrlib.php';
+require_once __DIR__ . '/phpqrcode/qrlib.php'; //Подключение библиотеки для генерации QR кода
 
-$data = json_decode(file_get_contents('php://input'), TRUE);
-file_put_contents('filebots.txt', '$data: '.print_r($data, 1)."\n", FILE_APPEND);
-
-
-
-$token = 'Ваш токен';
+$data = json_decode(file_get_contents('php://input'), TRUE); //Прослушивание входного соединения принятия несериализуемых данных
+file_put_contents('filebots.txt', '$data: '.print_r($data, 1)."\n", FILE_APPEND); //Передача данных в логи
 
 
-$message = $data['message']['text'];
-$nameuse = (string) $data['message']['chat']['username'];
-$members = null;
+
+$token = 'Ваш токен'; //Токен Telegram Bot
+
+
+$message = $data['message']['text']; //Поле текстового сообщения бота
+$nameuse = (string) $data['message']['chat']['username']; //Отправитель и получатель сообщения бота
+$members = null; //Поле результата форматирования сообщения
 $buttonkey = null;
 $params = array();
 
 if ($nameuse === null or $nameuse === "") {
     $nameuse = (string) $data['message']['chat']['first_name'];
-}
+} //Проверка на отсутствие никнейма пользователя
 
 if ($message === "/start") {
     $members = "Используйте меню для выполнения действий";
-}
+} //Формирование сообщения при старте бота
 
 if ($message === "/promo") {
     $json = file_get_contents('data_tyr.json');
@@ -33,7 +33,7 @@ if ($message === "/promo") {
     } else if (isset($tempArray['@'.$nameuse]['promo']) and $tempArray['@'.$nameuse]['used'] === "check") {
         $qrquery=array(
             'chat_id'=>$data['message']['chat']['id'],
-            'photo'=>'https://web-pe.ru/app-php/Telegram_Tyr_Bots/qr/'.$tempArray['@'.$nameuse]['promo'].'.png',
+            'photo'=>'https://example.ru/qr/'.$tempArray['@'.$nameuse]['promo'].'.png',//Поле настройки ссылки на изображение QR кода
             'caption'=>'<b>'.'Активируйте ваш промо QR-код'.'</b>',
             'parse_mode'=>"HTML"
         );
@@ -42,7 +42,7 @@ if ($message === "/promo") {
 
         exit();
     } else {
-        $members = rand(9999999, 999999999);
+        $members = rand(9999999, 999999999); //Формирование случайного числа для закодирование QR
         $tempArray['@'.$nameuse]['promo'] = $members;
         $tempArray['@'.$nameuse]['used'] = 'check';
         $jsonData = json_encode($tempArray, JSON_PRETTY_PRINT);
@@ -205,8 +205,8 @@ if ($message === "/promo") {
                 "inline_keyboard"=>array(
                     array(
                         array(
-                            'text' => 'Перейти на сайт www.tirlimonka.ru',
-                            'url'=>'https://tirlimonka.ru/',
+                            'text' => 'Перейти на сайт www.example.ru',
+                            'url'=>'https://example.ru/',
                         ),
                     )
                 )

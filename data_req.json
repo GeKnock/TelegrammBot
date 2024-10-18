@@ -1,16 +1,9 @@
 {
-    "@Denis": {
-        "office": "admin",
-        "status": "actives",
-        "last_message_user": "tirlimonka",
-        "last_message_bot": "empty",
-        "hash-code": "hfoo"
-    },
-    "@tirlimonka": {
-        "temp_name": "tirlimonka",
+    "@Examplessssssssssssss": {
         "office": "admin",
         "status": "actives",
         "last_message_user": "empty",
-        "last_message_bot": "empty"
+        "last_message_bot": "empty",
+        "hash-code": "0000"
     }
 }
